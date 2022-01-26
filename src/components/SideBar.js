@@ -6,6 +6,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BsChatDots } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { IoIosLogOut } from "react-icons/io";
+import { Mobile } from "../reponsive";
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +16,10 @@ const Container = styled.div`
   color: #ffffff;
   background: #303c6c;
   border-radius: 0px 20px 20px 0px;
+
+  ${Mobile({
+    display: "none",
+  })}
 `;
 
 const DashBoard = styled.div`

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
 import MyImg from "../images/ihsaan.jpeg";
+import { Mobile } from "../reponsive";
 
 let data = [
   {
@@ -70,6 +71,10 @@ let data = [
 
 const Container = styled.div`
   padding-left: 30px;
+
+  ${Mobile({
+    display: "none",
+  })}
 `;
 const SearchBox = styled.div`
   width: 400px;

@@ -3,12 +3,17 @@ import styled from "styled-components";
 import { AiOutlineUnorderedList, AiOutlineDown } from "react-icons/ai";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import userImg from "../images/ihsaan.jpeg";
+import { Mobile } from "../reponsive";
 
 const Container = styled.div`
   height: 80px;
   display: flex;
   padding-top: 45px;
   padding-left: 30px;
+
+  ${Mobile({
+    display: "none",
+  })}
 `;
 const LeftContainer = styled.div`
   width: 400px;

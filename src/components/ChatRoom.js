@@ -4,10 +4,17 @@ import { ImAttachment } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
 
 import Img from "../images/ihsaan.jpeg";
+import { Mobile } from "../reponsive";
 
 const Container = styled.div`
   /* border: 1px solid blue; */
   height: 90%;
+  ${Mobile({
+    // marginLeft: "0px",
+    // marginRight: "0px",
+    // borderRadius: "0px",
+    // width: "50%",
+  })}
 `;
 const Day = styled.h3`
   text-align: center;
@@ -27,6 +34,11 @@ const MsgBox = styled.div`
   height: 88%;
   display: flex;
   flex-direction: column;
+  ${Mobile({
+    // width: "281px",
+    // height: "100%",
+    paddingRight: "20px",
+  })}
 `;
 const MsgDetails = styled.div`
   display: flex;
@@ -37,7 +49,14 @@ const MsgDetails = styled.div`
   height: 100px;
   background: rgba(180, 223, 229, 0.5);
   border-radius: 20px 0px 10px 20px;
+  ${Mobile({
+    width: "80%",
+    // height: "100%",
+    boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
+    borderRadius: "10px 0px",
+  })}
 `;
+
 const Msg = styled.div`
   font-size: 16px;
   height: 90px;
@@ -56,12 +75,16 @@ const UserImg = styled.img`
   height: 40px;
   border-radius: 50%;
   padding: 0px 20px;
+  ${Mobile({
+    display: "none",
+  })}
 `;
 const InputBox = styled.div`
   height: 90px;
   display: flex;
   /* border: 1px solid red; */
   margin-bottom: 30px;
+  ${Mobile({})}
 `;
 const InputWrap = styled.div`
   display: flex;
@@ -75,6 +98,12 @@ const InputWrap = styled.div`
   justify-content: space-between;
   margin-left: 30px;
   margin-right: 20px;
+  ${Mobile({
+    width: "281px",
+    height: "44px",
+    marginRight: "10px",
+    marginLeft: "20px",
+  })}
 `;
 const Input = styled.input`
   border: none;
@@ -82,10 +111,18 @@ const Input = styled.input`
   height: 55px;
   border-radius: 10px;
   padding-left: 20px;
+
+  ${Mobile({
+    width: "100%",
+    height: "40px",
+  })}
 `;
 const AttachIcon = styled.div`
   font-size: 28px;
   padding-right: 23px;
+  ${Mobile({
+    fontSize: "22px",
+  })}
 `;
 const SendIcon = styled.div`
   display: flex;
@@ -96,10 +133,12 @@ const SendIcon = styled.div`
   border-radius: 50%;
   font-size: 30px;
   background: #c4c4c4;
+  ${Mobile({
+    width: "44px",
+    height: "44px",
+    fontSize: "24px",
+  })}
 `;
-// const MsgBox = styled.div`
-
-// `;
 
 export default function ChatRoom() {
   return (
