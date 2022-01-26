@@ -5,9 +5,10 @@ import Header from "./Header";
 import MainCotainer from "./MainCotainer";
 
 const Container = styled.div`
-  border: 1px solid blue;
-  width: 100%;
-  height: 100vh;
+  /* border: 1px solid blue; */
+  width: 1290px;
+  /* width: 80%; */
+  height: 1024px;
 `;
 
 export default function ChatComponent() {

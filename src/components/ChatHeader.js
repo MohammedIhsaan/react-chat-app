@@ -5,7 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import UserImg from "../images/ihsaan.jpeg";
 
 const Header = styled.div`
-  width: 850px;
+  width: 100%;
   color: #ffffff;
   height: 80px;
   background: #303c6c;

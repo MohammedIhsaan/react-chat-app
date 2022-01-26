@@ -11,9 +11,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 150px;
-  height: 100vh;
-  left: 0px;
-  top: 0px;
+  height: 1024px;
   color: #ffffff;
   background: #303c6c;
   border-radius: 0px 20px 20px 0px;
@@ -32,7 +30,10 @@ const IconWrapper = styled.div`
 `;
 
 const Icon = styled.div`
-  font-size: 24px;
+  cursor: pointer;
+
+  /* font-size: 24px; */
+  font-size: ${(props) => (props.type === "dash" ? "30px" : "24px")};
   height: 44px;
   margin-bottom: 30px;
   display: flex;
@@ -40,6 +41,10 @@ const Icon = styled.div`
   padding-left: 45px;
   background-color: ${(props) =>
     props.type === "active" ? "rgb(255, 255, 255, 0.5)" : "inherit"};
+
+  :hover {
+    background-color: rgb(255, 255, 255, 0.5);
+  }
 `;
 const LogOutIcon = styled.div`
   font-size: 24px;
