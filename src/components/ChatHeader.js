@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
@@ -100,6 +100,7 @@ const DotDiv = styled.div`
   right: 4px;
   bottom: 10px;
   background: #6fcf97;
+  display: ${(props) => props.type || "none"};
 `;
 const Name = styled.div`
   font-size: 20px;
@@ -143,7 +144,19 @@ const Line = styled.hr`
 `;
 
 export default function ChatHeader() {
-  const { userNames } = useContext(AppContext);
+  const { userNames, userdata, sethide } = useContext(AppContext);
+  const [active, setactive, hide] = useState(null);
+
+  const handleClick = () => {
+    console.log("clicked");
+    sethide(false);
+  };
+
+  useEffect(() => {
+    let res = userdata.filter((obj) => obj.memberNmae === userNames);
+    setactive(res[0].status);
+  }, [userNames]);
+
   return (
     <Container>
       <MobileHeader>
@@ -155,11 +168,11 @@ export default function ChatHeader() {
       <Header>
         <Left>
           <UserIcon>
-            <BackArrow>
+            <BackArrow onClick={handleClick}>
               <IoMdArrowBack />
             </BackArrow>
             <ImgDiv>
-              <DotDiv />
+              <DotDiv type={active} />
               <UserImage src={UserImg} />
             </ImgDiv>
           </UserIcon>

@@ -8,7 +8,9 @@ import { AppContext } from "../App";
 const Container = styled.div`
   padding-left: 30px;
   ${Mobile({
-    display: "none",
+    // display: "none",
+    display: (props) => (props.type ? "none" : ""),
+    padding: "5px 0px 0px 5px",
   })}
 `;
 const SearchBox = styled.div`
@@ -19,6 +21,10 @@ const SearchBox = styled.div`
   border-radius: 10px;
   display: flex;
   align-items: center;
+  ${Mobile({
+    marginTop: "10px",
+    width: "400px",
+  })}
 `;
 const Input = styled.input`
   height: 56px;
@@ -52,6 +58,11 @@ const Wrapper = styled.div`
   ::-webkit-scrollbar-thumb {
     background: #303c6c;
   }
+  ${Mobile({
+    marginTop: "10px",
+    width: "400px",
+    height: "80vh",
+  })}
 `;
 const AllMember = styled.div`
   display: flex;
@@ -127,11 +138,20 @@ const Line = styled.hr`
 `;
 
 export default function MembersList() {
-  const { setuserName, data, setdata, setsearchName, searchName, userdata } =
-    useContext(AppContext);
+  const {
+    setuserName,
+    data,
+    setdata,
+    setsearchName,
+    searchName,
+    userdata,
+    hide,
+    sethide,
+  } = useContext(AppContext);
 
   const handelClick = (e) => {
     setuserName(e);
+    sethide(true);
   };
   const handleChange = (e) => {
     setsearchName(e.target.value);
@@ -148,11 +168,11 @@ export default function MembersList() {
       setdata(userdata);
     }
 
-    console.log("res", res);
+    // console.log("res", res);
   }, [searchName]);
 
   return (
-    <Container>
+    <Container type={hide}>
       <SearchBox>
         <IoIosSearch style={{ fontSize: "26px", paddingLeft: "22px" }} />
         <Input placeholder="Search" onChange={handleChange} />
@@ -178,7 +198,6 @@ export default function MembersList() {
                       {obj.recentMsg?.split(" ").length > 10
                         ? obj.recentMsg?.substr(0, 30)
                         : obj?.recentMsg}
-                      ..
                     </LastMsg>
                   </Middel>
                   <Right>

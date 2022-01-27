@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { ImAttachment } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
@@ -28,9 +28,6 @@ const Day = styled.h3`
 `;
 const Wrapper = styled.div`
   display: flex;
-  /* justify-content: flex-end; */
-  /* flex-direction: row-reverse; */
-  /* width: 100%; */
   width: ${(props) => (props.type === "right" ? "70%" : "100%")};
 
   flex-direction: ${(props) =>
@@ -41,9 +38,7 @@ const Wrapper = styled.div`
 `;
 
 const MsgBox = styled.div`
-  /* border: 1px solid green; */
-  /* height: 88%; */
-  /* height: 50%; */
+  height: 150%;
   overflow: scroll;
 
   ::-webkit-scrollbar {
@@ -52,14 +47,13 @@ const MsgBox = styled.div`
   width: 100%;
   ${Desktop2({
     height: "75%",
+    // overflow: "scroll",
   })}
   display: flex;
   flex-direction: column;
   ${Mobile({
-    // width: "281px",
-    // height: "100%",
+    height: "125%",
     paddingRight: "0px",
-    // marginRight: "20px",
   })}
 `;
 const MsgDetails = styled.div`
@@ -68,14 +62,13 @@ const MsgDetails = styled.div`
   align-items: ${(props) =>
     props.type === "right" ? "flex-start" : "flex-end"};
   padding: 13px 10px;
-  /* margin: ${(props) => (props.type === "right" ? "100%" : "60%")}; */
   width: ${(props) => (props.type === "right" ? "100%" : "60%")};
   background: ${(props) =>
     props.type === "right" ? "#F4F4F4" : "rgba(180, 223, 229, 0.5)"};
-  border-radius: 20px 0px 10px 20px;
+  border-radius: ${(props) =>
+    props.type === "right" ? "0px 20px 10px" : "20px 0px 10px 20px"};
   ${Mobile({
     width: (props) => (props.type === "right" ? "90%" : "80%"),
-    // height: "100%",
     boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "10px 0px",
     marginRight: (props) => (props.type === "right" ? "0" : "25px"),
@@ -107,9 +100,10 @@ const UserImg = styled.img`
 const InputBox = styled.div`
   height: 90px;
   display: flex;
-  /* border: 1px solid red; */
   margin-bottom: 30px;
-  ${Mobile({})}
+  ${Mobile({
+    height: "40px",
+  })}
 `;
 const InputWrap = styled.div`
   display: flex;
@@ -202,41 +196,38 @@ const SendIcon = styled.div`
 export default function ChatRoom() {
   const { data, userNames } = useContext(AppContext);
 
-  console.log(userNames);
+  // console.log(userNames);
   let userObj = data.filter((obj) => obj.memberNmae === userNames);
+
+  // useEffect(() => {
+  //   console.log("array of msg", userObj[0].msgHistory);
+  // }, [userNames]);
 
   return (
     <Container>
       <MsgBox>
         <Day>Today</Day>
-        <Wrapper>
-          <MsgDetails>
-            <Msg>{userObj[0]?.recentMsg}</Msg>
-            <Time>{userObj[0]?.time}</Time>
-          </MsgDetails>
-          <UserImg src={Img} />
-        </Wrapper>
-        <Wrapper type="right">
-          <MsgDetails type="right">
-            <Msg>{userObj[0]?.recentMsg}</Msg>
-            <Time>{userObj[0]?.time}</Time>
-          </MsgDetails>
-          <UserImg src={Img} />
-        </Wrapper>
-        <Wrapper>
-          <MsgDetails>
-            <Msg>{userObj[0]?.recentMsg}</Msg>
-            <Time>{userObj[0]?.time}</Time>
-          </MsgDetails>
-          <UserImg src={Img} />
-        </Wrapper>
-        <Wrapper type="right">
-          <MsgDetails type="right">
-            <Msg>{userObj[0]?.recentMsg}</Msg>
-            <Time>{userObj[0]?.time}</Time>
-          </MsgDetails>
-          <UserImg src={Img} />
-        </Wrapper>
+
+        {userObj[0].msgHistory?.map((e) => {
+          return (
+            <>
+              <Wrapper type="right">
+                <MsgDetails type="right">
+                  <Msg>{e?.recievedMsg}</Msg>
+                  <Time>{userObj[0]?.time}</Time>
+                </MsgDetails>
+                <UserImg src={Img} />
+              </Wrapper>
+              <Wrapper>
+                <MsgDetails>
+                  <Msg>{e?.sendMsg}</Msg>
+                  <Time>{userObj[0]?.time}</Time>
+                </MsgDetails>
+                <UserImg src={Img} />
+              </Wrapper>
+            </>
+          );
+        })}
       </MsgBox>
       <InputBox>
         <InputWrap>

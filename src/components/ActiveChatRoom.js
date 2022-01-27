@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { AppContext } from "../App";
 import { Desktop2, Mobile } from "../reponsive";
 import ChatHeader from "./ChatHeader";
 import ChatRoom from "./ChatRoom";
@@ -10,6 +11,7 @@ const Container = styled.div`
   width: 780px;
   height: 860px;
   /* height: 75.5vh; */
+
   ${Desktop2({
     height: "75.5vh",
   })}
@@ -22,6 +24,7 @@ const Container = styled.div`
     borderRadius: "0px",
     width: "100%",
     height: "100vh",
+    display: (props) => (props.type ? "" : "none"),
   })}
   ${Desktop2({
     width: "100%",
@@ -30,8 +33,9 @@ const Container = styled.div`
 `;
 
 export default function ActiveChatRoom() {
+  const { hide } = useContext(AppContext);
   return (
-    <Container>
+    <Container type={hide}>
       <ChatHeader />
       <ChatRoom />
     </Container>
