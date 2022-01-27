@@ -24,7 +24,8 @@ const Container = styled.div`
     height: "100vh",
   })}
   ${Desktop2({
-    width: "65%",
+    width: "100%",
+    // width: "65%",
   })};
 `;
 
