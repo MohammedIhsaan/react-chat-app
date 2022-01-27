@@ -28,13 +28,28 @@ const Day = styled.h3`
 `;
 const Wrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  /* flex-direction: row-reverse; */
+  /* width: 100%; */
+  width: ${(props) => (props.type === "right" ? "70%" : "100%")};
+
+  flex-direction: ${(props) =>
+    props.type === "right" ? "row-reverse" : "row"};
+  justify-content: ${(props) =>
+    props.type === "right" ? "flex-start" : "flex-end"};
+  padding-bottom: 10px;
 `;
 
 const MsgBox = styled.div`
   /* border: 1px solid green; */
   /* height: 88%; */
-  height: 92%;
+  /* height: 50%; */
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  width: 100%;
   ${Desktop2({
     height: "75%",
   })}
@@ -43,22 +58,27 @@ const MsgBox = styled.div`
   ${Mobile({
     // width: "281px",
     // height: "100%",
-    paddingRight: "20px",
+    paddingRight: "0px",
+    // marginRight: "20px",
   })}
 `;
 const MsgDetails = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: ${(props) =>
+    props.type === "right" ? "flex-start" : "flex-end"};
   padding: 13px 10px;
-  width: 385px;
-  background: rgba(180, 223, 229, 0.5);
+  /* margin: ${(props) => (props.type === "right" ? "100%" : "60%")}; */
+  width: ${(props) => (props.type === "right" ? "100%" : "60%")};
+  background: ${(props) =>
+    props.type === "right" ? "#F4F4F4" : "rgba(180, 223, 229, 0.5)"};
   border-radius: 20px 0px 10px 20px;
   ${Mobile({
-    width: "80%",
+    width: (props) => (props.type === "right" ? "90%" : "80%"),
     // height: "100%",
     boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "10px 0px",
+    marginRight: (props) => (props.type === "right" ? "0" : "25px"),
   })}
 `;
 
@@ -67,6 +87,7 @@ const Msg = styled.div`
   letter-spacing: -0.02em;
   font-weight: normal;
   color: #3c3c3c;
+  width: 95%;
 `;
 const Time = styled.div`
   display: flex;
@@ -191,7 +212,28 @@ export default function ChatRoom() {
         <Wrapper>
           <MsgDetails>
             <Msg>{userObj[0]?.recentMsg}</Msg>
-            <Time>8:05 AM</Time>
+            <Time>{userObj[0]?.time}</Time>
+          </MsgDetails>
+          <UserImg src={Img} />
+        </Wrapper>
+        <Wrapper type="right">
+          <MsgDetails type="right">
+            <Msg>{userObj[0]?.recentMsg}</Msg>
+            <Time>{userObj[0]?.time}</Time>
+          </MsgDetails>
+          <UserImg src={Img} />
+        </Wrapper>
+        <Wrapper>
+          <MsgDetails>
+            <Msg>{userObj[0]?.recentMsg}</Msg>
+            <Time>{userObj[0]?.time}</Time>
+          </MsgDetails>
+          <UserImg src={Img} />
+        </Wrapper>
+        <Wrapper type="right">
+          <MsgDetails type="right">
+            <Msg>{userObj[0]?.recentMsg}</Msg>
+            <Time>{userObj[0]?.time}</Time>
           </MsgDetails>
           <UserImg src={Img} />
         </Wrapper>

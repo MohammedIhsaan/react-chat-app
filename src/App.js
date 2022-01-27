@@ -14,6 +14,7 @@ let userdata = [
     recentMsg:
       "Of course I can, just catching up with steve on it and I’ll write out. Speak tomorrow! Let me know if you have any questions!",
     count: null,
+    time: "8:05 AM",
     status: true,
   },
   {
