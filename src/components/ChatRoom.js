@@ -102,6 +102,8 @@ const InputWrap = styled.div`
   justify-content: space-between;
   margin-left: 30px;
   margin-right: 20px;
+  z-index: 2;
+
   ${Mobile({
     width: "75%",
     height: "44px",
@@ -112,20 +114,43 @@ const InputWrap = styled.div`
     width: "80%",
   })}
 `;
-const Input = styled.input`
+const Input = styled.textarea`
   border: none;
   width: 100%;
   height: 55px;
   border-radius: 10px;
   padding-left: 20px;
+  resize: none;
+  z-index: 1;
+  ::placeholder {
+    line-height: 50px;
+  }
   :focus-visible {
+    ::placeholder {
+      color: transparent;
+    }
     outline: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 2.5px;
+    height: 0px;
+    background-color: #aaa;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #303c6c;
   }
 
   ${Mobile({
     width: "100%",
     height: "40px",
   })}
+
+  @media only screen and (max-width:420px) {
+    ::placeholder {
+      line-height: 40px;
+    }
+  }
 `;
 const AttachIcon = styled.div`
   font-size: 28px;
