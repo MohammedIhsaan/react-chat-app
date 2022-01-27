@@ -36,6 +36,7 @@ const SortIcon = styled.div`
   height: 50px;
   background: #f4f4f4;
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const Span = styled.div`
@@ -50,16 +51,30 @@ const UserDetails = styled.div`
   justify-content: flex-end;
   padding-right: 67px;
 `;
+
+const DotDiv = styled.div`
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  right: 57px;
+  bottom: 60px;
+  background: #ef254a;
+`;
+
 const NotifyIcon = styled.div`
   font-size: 30px;
   padding-top: 5px;
   padding-right: 50px;
+  position: relative;
+  cursor: pointer;
 `;
 const UserIcon = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: red;
+  cursor: pointer;
 `;
 const Image = styled.img`
   width: 40px;
@@ -73,10 +88,12 @@ const UserName = styled.div`
   padding-top: 5px;
   padding-right: 27px;
   padding-left: 20px;
+  cursor: pointer;
 `;
 const DropIcon = styled.div`
   font-size: 15px;
   padding-top: 14px;
+  cursor: pointer;
 `;
 
 export default function Header() {
@@ -93,6 +110,7 @@ export default function Header() {
       </LeftContainer>
       <UserDetails>
         <NotifyIcon>
+          <DotDiv />
           <IoIosNotificationsOutline />
         </NotifyIcon>
         <UserIcon>

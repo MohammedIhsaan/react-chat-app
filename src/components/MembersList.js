@@ -1,77 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
 import MyImg from "../images/ihsaan.jpeg";
-import { Mobile } from "../reponsive";
-
-let data = [
-  {
-    id: 1,
-    memberNmae: "Esther Howard",
-    recentMsg: "of course I can,..",
-    count: null,
-  },
-  {
-    id: 2,
-    memberNmae: "Marvin Mckinney",
-    recentMsg: "That`s great!!",
-    time: "1 min",
-    count: 2,
-  },
-  {
-    id: 3,
-    memberNmae: "Kathryn Murphy",
-    recentMsg: "Counting yor slot...",
-    time: "1 min",
-    count: null,
-  },
-  {
-    id: 4,
-    memberNmae: "Floyd Miles",
-    recentMsg: "Let me know...",
-    time: "10 min",
-    count: null,
-  },
-  {
-    id: 5,
-    memberNmae: "Albert Flores",
-    recentMsg: "All faith needs feet...",
-    time: "30 min",
-    count: null,
-  },
-  {
-    id: 6,
-    memberNmae: "Brooklyn Simmons",
-    recentMsg: "Glad to hear from you...",
-    time: "2 Days",
-    count: null,
-  },
-  {
-    id: 7,
-    memberNmae: "Kristin Watson",
-    recentMsg: "Esther Howard",
-    time: "5 Days",
-    count: null,
-  },
-  {
-    id: 8,
-    memberNmae: "Annette Black",
-    recentMsg: "Esther Howard",
-    time: "1 Week",
-    count: null,
-  },
-  {
-    id: 9,
-    memberNmae: "Savannah Nguyen",
-    recentMsg: "Esther Howard",
-    time: "2 Week",
-    count: null,
-  },
-];
+import { Desktop2, Mobile } from "../reponsive";
+import { AppContext } from "../App";
 
 const Container = styled.div`
   padding-left: 30px;
-
   ${Mobile({
     display: "none",
   })}
@@ -90,6 +25,10 @@ const Input = styled.input`
   font-size: 24px;
   padding-left: 22px;
   border: none;
+
+  :focus-visible {
+    outline: none;
+  }
 `;
 const Wrapper = styled.div`
   margin-top: 40px;
@@ -97,17 +36,47 @@ const Wrapper = styled.div`
   padding-bottom: 50px;
   width: 400px;
   height: 717px;
+  /* height: 52vh; */
+  ${Desktop2({
+    height: "52vh",
+  })}
   background: #ffffff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    width: 2.5px;
+    height: 0px;
+    background-color: #aaa;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #303c6c;
+  }
 `;
 const AllMember = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 const Left = styled.div`
   flex: 1;
 `;
+
+const ImgDiv = styled.div`
+  position: relative;
+`;
+const DotDiv = styled.div`
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  right: 20px;
+  bottom: 20px;
+  background: #6fcf97;
+
+  display: ${(props) => props.type || "none"};
+`;
+
 const MemberImg = styled.img`
   width: 60px;
   height: 60px;
@@ -158,24 +127,59 @@ const Line = styled.hr`
 `;
 
 export default function MembersList() {
+  const { setuserName, data, setdata, setsearchName, searchName, userdata } =
+    useContext(AppContext);
+
+  const handelClick = (e) => {
+    setuserName(e);
+  };
+  const handleChange = (e) => {
+    setsearchName(e.target.value);
+  };
+
+  useEffect(() => {
+    let res = userdata.filter(
+      (obj) =>
+        obj.memberNmae.substr(0, searchName.length).toUpperCase() ==
+        searchName.toUpperCase()
+    );
+    setdata(res);
+    if (searchName.length === 0) {
+      setdata(userdata);
+    }
+
+    console.log("res", res);
+  }, [searchName]);
+
   return (
     <Container>
       <SearchBox>
         <IoIosSearch style={{ fontSize: "26px", paddingLeft: "22px" }} />
-        <Input placeholder="Search" />
+        <Input placeholder="Search" onChange={handleChange} />
       </SearchBox>
       <Wrapper>
         {data.map((obj) => {
           return (
             <>
               <>
-                <AllMember>
+                <AllMember
+                  key={obj.id}
+                  onClick={() => handelClick(obj?.memberNmae)}
+                >
                   <Left>
-                    <MemberImg src={MyImg} />
+                    <ImgDiv>
+                      <DotDiv type={obj.status} />
+                      <MemberImg src={MyImg} />
+                    </ImgDiv>
                   </Left>
                   <Middel>
-                    <MemberName>{obj.memberNmae}</MemberName>
-                    <LastMsg>{obj.recentMsg}</LastMsg>
+                    <MemberName>{obj?.memberNmae}</MemberName>
+                    <LastMsg>
+                      {obj.recentMsg?.split(" ").length > 10
+                        ? obj.recentMsg?.substr(0, 30)
+                        : obj?.recentMsg}
+                      ..
+                    </LastMsg>
                   </Middel>
                   <Right>
                     <Time>{obj.time ? obj.time : ""}</Time>

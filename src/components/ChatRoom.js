@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { ImAttachment } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
 
 import Img from "../images/ihsaan.jpeg";
-import { Mobile } from "../reponsive";
+import { Desktop2, Mobile } from "../reponsive";
+import { AppContext } from "../App";
 
 const Container = styled.div`
   /* border: 1px solid blue; */
-  height: 90%;
-  ${Mobile({
-    // marginLeft: "0px",
-    // marginRight: "0px",
-    // borderRadius: "0px",
-    // width: "50%",
+  height: 65vh;
+  ${Desktop2({
+    height: "65vh,",
   })}
 `;
 const Day = styled.h3`
@@ -23,6 +21,10 @@ const Day = styled.h3`
   color: #bbbbbb;
   padding-top: 24px;
   padding-bottom: 24px;
+  ${Mobile({
+    fontSize: "12px",
+    paddingTop: "16px",
+  })}
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -31,7 +33,11 @@ const Wrapper = styled.div`
 
 const MsgBox = styled.div`
   /* border: 1px solid green; */
-  height: 88%;
+  /* height: 88%; */
+  height: 92%;
+  ${Desktop2({
+    height: "75%",
+  })}
   display: flex;
   flex-direction: column;
   ${Mobile({
@@ -46,7 +52,6 @@ const MsgDetails = styled.div`
   align-items: flex-start;
   padding: 13px 10px;
   width: 385px;
-  height: 100px;
   background: rgba(180, 223, 229, 0.5);
   border-radius: 20px 0px 10px 20px;
   ${Mobile({
@@ -59,7 +64,6 @@ const MsgDetails = styled.div`
 
 const Msg = styled.div`
   font-size: 16px;
-  height: 90px;
   letter-spacing: -0.02em;
   font-weight: normal;
   color: #3c3c3c;
@@ -99,10 +103,13 @@ const InputWrap = styled.div`
   margin-left: 30px;
   margin-right: 20px;
   ${Mobile({
-    width: "281px",
+    width: "75%",
     height: "44px",
     marginRight: "10px",
     marginLeft: "20px",
+  })}
+  ${Desktop2({
+    width: "80%",
   })}
 `;
 const Input = styled.input`
@@ -111,6 +118,9 @@ const Input = styled.input`
   height: 55px;
   border-radius: 10px;
   padding-left: 20px;
+  :focus-visible {
+    outline: none;
+  }
 
   ${Mobile({
     width: "100%",
@@ -120,6 +130,8 @@ const Input = styled.input`
 const AttachIcon = styled.div`
   font-size: 28px;
   padding-right: 23px;
+  padding-left: 23px;
+  cursor: pointer;
   ${Mobile({
     fontSize: "22px",
   })}
@@ -133,6 +145,7 @@ const SendIcon = styled.div`
   border-radius: 50%;
   font-size: 30px;
   background: #c4c4c4;
+  cursor: pointer;
   ${Mobile({
     width: "44px",
     height: "44px",
@@ -141,16 +154,18 @@ const SendIcon = styled.div`
 `;
 
 export default function ChatRoom() {
+  const { data, userNames } = useContext(AppContext);
+
+  console.log(userNames);
+  let userObj = data.filter((obj) => obj.memberNmae === userNames);
+
   return (
     <Container>
       <MsgBox>
         <Day>Today</Day>
         <Wrapper>
           <MsgDetails>
-            <Msg>
-              Of course I can, just catching up with steve on it and I’ll write
-              out. Speak tomorrow! Let me know if you have any questions!
-            </Msg>
+            <Msg>{userObj[0]?.recentMsg}</Msg>
             <Time>8:05 AM</Time>
           </MsgDetails>
           <UserImg src={Img} />

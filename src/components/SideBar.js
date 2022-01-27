@@ -6,19 +6,23 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BsChatDots } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { IoIosLogOut } from "react-icons/io";
-import { Mobile } from "../reponsive";
+import { Desktop2, Mobile } from "../reponsive";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 150px;
   height: 1024px;
+  /* height: 100vh; */
   color: #ffffff;
   background: #303c6c;
   border-radius: 0px 20px 20px 0px;
 
   ${Mobile({
     display: "none",
+  })}
+  ${Desktop2({
+    height: "100vh",
   })}
 `;
 

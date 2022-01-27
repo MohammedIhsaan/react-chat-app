@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Mobile } from "../reponsive";
+import { Desktop2, Mobile } from "../reponsive";
 import ChatHeader from "./ChatHeader";
 import ChatRoom from "./ChatRoom";
 
@@ -9,6 +9,10 @@ const Container = styled.div`
   margin-right: 50px;
   width: 780px;
   height: 860px;
+  /* height: 75.5vh; */
+  ${Desktop2({
+    height: "75.5vh",
+  })}
   background: #ffffff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.35);
   border-radius: 20px;
@@ -16,9 +20,12 @@ const Container = styled.div`
     marginLeft: "0px",
     marginRight: "0px",
     borderRadius: "0px",
-    width: "375px",
+    width: "100%",
     height: "100vh",
   })}
+  ${Desktop2({
+    width: "65%",
+  })};
 `;
 
 export default function ActiveChatRoom() {

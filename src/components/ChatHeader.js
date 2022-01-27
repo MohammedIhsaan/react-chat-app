@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
@@ -6,6 +6,7 @@ import { RiMenu4Fill } from "react-icons/ri";
 import { IoMdArrowBack } from "react-icons/io";
 import UserImg from "../images/ihsaan.jpeg";
 import { Mobile } from "../reponsive";
+import { AppContext } from "../App";
 
 const Container = styled.div`
   /* ${Mobile({
@@ -88,6 +89,18 @@ const UserImage = styled.img`
 const UserName = styled.div`
   /* font-size: 40px; */
 `;
+const ImgDiv = styled.div`
+  position: relative;
+`;
+const DotDiv = styled.div`
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  right: 4px;
+  bottom: 10px;
+  background: #6fcf97;
+`;
 const Name = styled.div`
   font-size: 20px;
   font-weight: 600;
@@ -115,9 +128,11 @@ const Right = styled.div`
 const MenuIcon = styled.div`
   font-size: 24px;
   padding-right: 20px;
+  cursor: pointer;
 `;
 const CloseIcon = styled.div`
   font-size: 24px;
+  cursor: pointer;
   ${Mobile({
     display: "none",
   })}
@@ -128,6 +143,7 @@ const Line = styled.hr`
 `;
 
 export default function ChatHeader() {
+  const { userNames } = useContext(AppContext);
   return (
     <Container>
       <MobileHeader>
@@ -142,10 +158,13 @@ export default function ChatHeader() {
             <BackArrow>
               <IoMdArrowBack />
             </BackArrow>
-            <UserImage src={UserImg} />
+            <ImgDiv>
+              <DotDiv />
+              <UserImage src={UserImg} />
+            </ImgDiv>
           </UserIcon>
           <UserName>
-            <Name>Eshter Howard</Name>
+            <Name>{userNames}</Name>
             <Status>Online</Status>
           </UserName>
         </Left>
