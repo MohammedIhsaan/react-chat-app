@@ -17,8 +17,11 @@ let userdata = [
     status: true,
     msgHistory: [
       {
-        sendMsg:
+        sendMsg: [
           "Hii Easther, glad to hear from you, I’m fine, What about you? and how it’s going with the velocity website? off cours, I’ll help with this project ",
+          "hi",
+          "hello",
+        ],
         recievedMsg:
           "Hii Prakash ! Feels like it’s been a while! How are you? Do you have any time for the remainder of the week to help me with an ongoing project?",
       },
@@ -38,7 +41,7 @@ let userdata = [
     count: 2,
     status: false,
     msgHistory: [
-      { sendMsg: "send", recievedMsg: "go it" },
+      { sendMsg: "send1", recievedMsg: "" },
       { sendMsg: "send2", recievedMsg: "go it1" },
       { sendMsg: "send3", recievedMsg: "go it2" },
     ],
@@ -50,6 +53,7 @@ let userdata = [
     time: "1 min",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 4,
@@ -58,6 +62,7 @@ let userdata = [
     time: "10 min",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 5,
@@ -66,6 +71,7 @@ let userdata = [
     time: "30 min",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 6,
@@ -74,6 +80,7 @@ let userdata = [
     time: "2 Days",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 7,
@@ -82,6 +89,7 @@ let userdata = [
     time: "5 Days",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 8,
@@ -90,6 +98,7 @@ let userdata = [
     time: "1 Week",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 9,
@@ -98,6 +107,7 @@ let userdata = [
     time: "2 Week",
     count: null,
     status: false,
+    msgHistory: [],
   },
   {
     id: 10,
@@ -131,6 +141,7 @@ export default function App() {
   const [searchName, setsearchName] = useState("");
   const [data, setdata] = useState(userdata);
   const [hide, sethide] = useState(true);
+  const [typedMsg, settypedMsg] = useState("");
   return (
     <AppContext.Provider
       value={{
@@ -143,6 +154,7 @@ export default function App() {
         userdata,
         hide,
         sethide,
+        settypedMsg,
       }}
     >
       <Container>

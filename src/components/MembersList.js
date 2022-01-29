@@ -163,6 +163,9 @@ export default function MembersList() {
         obj.memberNmae.substr(0, searchName.length).toUpperCase() ==
         searchName.toUpperCase()
     );
+    // if(res.length){
+    //   setdata(userdata)
+    // }
     setdata(res);
     if (searchName.length === 0) {
       setdata(userdata);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { ImAttachment } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
@@ -26,8 +26,13 @@ const Day = styled.h3`
     paddingTop: "16px",
   })}
 `;
+const MainWrap = styled.div`
+  /* display: flex; */
+  display: ${(props) => (props.type === "" ? "none" : "flex")};
+`;
 const Wrapper = styled.div`
   display: flex;
+  /* display: ${(props) => (props.type === "" ? "none" : "flex")}; */
   width: ${(props) => (props.type === "right" ? "70%" : "100%")};
 
   flex-direction: ${(props) =>
@@ -52,7 +57,7 @@ const MsgBox = styled.div`
   display: flex;
   flex-direction: column;
   ${Mobile({
-    height: "125%",
+    height: "120%",
     paddingRight: "0px",
   })}
 `;
@@ -194,49 +199,77 @@ const SendIcon = styled.div`
 `;
 
 export default function ChatRoom() {
-  const { data, userNames } = useContext(AppContext);
+  const { userNames, userdata, settypedMsg } = useContext(AppContext);
+  let userObj = userdata.filter((obj) => obj.memberNmae === userNames);
 
-  // console.log(userNames);
-  let userObj = data.filter((obj) => obj.memberNmae === userNames);
+  let typedmsg = useRef();
 
-  // useEffect(() => {
-  //   console.log("array of msg", userObj[0].msgHistory);
-  // }, [userNames]);
+  let handleSend = () => {
+    console.log(typedmsg.current.value);
+    settypedMsg(typedmsg.current.value);
+
+    userObj[0].msgHistory = [
+      ...userObj[0].msgHistory,
+      { sendMsg: typedmsg.current.value, recievedMsg: null },
+    ];
+
+    // if (userObj[0].hasOwnProperty("msgHistory")) {
+    //   console.log(userObj[0].msgHistory);
+    // }
+    console.log(userObj[0].msgHistory);
+  };
 
   return (
     <Container>
       <MsgBox>
         <Day>Today</Day>
 
-        {userObj[0].msgHistory?.map((e) => {
+        {userObj[0]?.msgHistory?.map((e) => {
+          let resc = "";
+          let send = "";
+          console.log("happenning");
+          console.log(resc, "....", send);
+          if (e?.recievedMsg) {
+            resc = "hide";
+          }
+          if (e?.sendMsg) {
+            send = "hide";
+          }
+
+          console.log(resc, "....", send);
+
           return (
             <>
-              <Wrapper type="right">
-                <MsgDetails type="right">
-                  <Msg>{e?.recievedMsg}</Msg>
-                  <Time>{userObj[0]?.time}</Time>
-                </MsgDetails>
-                <UserImg src={Img} />
-              </Wrapper>
-              <Wrapper>
-                <MsgDetails>
-                  <Msg>{e?.sendMsg}</Msg>
-                  <Time>{userObj[0]?.time}</Time>
-                </MsgDetails>
-                <UserImg src={Img} />
-              </Wrapper>
+              <MainWrap type={resc}>
+                <Wrapper type="right">
+                  <MsgDetails type="right">
+                    <Msg>{e?.recievedMsg}</Msg>
+                    <Time>{userObj[0]?.time}</Time>
+                  </MsgDetails>
+                  <UserImg src={Img} />
+                </Wrapper>
+              </MainWrap>
+              <MainWrap>
+                <Wrapper type={send}>
+                  <MsgDetails>
+                    <Msg>{e?.sendMsg}</Msg>
+                    <Time>{userObj[0]?.time}</Time>
+                  </MsgDetails>
+                  <UserImg src={Img} />
+                </Wrapper>
+              </MainWrap>
             </>
           );
         })}
       </MsgBox>
       <InputBox>
         <InputWrap>
-          <Input placeholder="Write a message" />
+          <Input placeholder="Write a message" ref={typedmsg} />
           <AttachIcon>
             <ImAttachment />
           </AttachIcon>
         </InputWrap>
-        <SendIcon>
+        <SendIcon onClick={handleSend}>
           <FiSend />
         </SendIcon>
       </InputBox>
